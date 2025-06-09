@@ -1,12 +1,6 @@
-"use client"
+import CategoryClient from './CategoryClient';
 
-import Image from 'next/image';
-import React, { useState, useEffect, use } from 'react'
-import Link from 'next/link';
-import { IoGridOutline, IoListOutline, IoFilterOutline } from 'react-icons/io5';
-import { FaSort, FaStar } from 'react-icons/fa';
-
-// Add this function to generate static params
+// Server component that handles static generation
 export async function generateStaticParams() {
     try {
         // Fetch all products to get unique categories
@@ -27,7 +21,24 @@ export async function generateStaticParams() {
     }
 }
 
-function page({ params }) {
+// Server component that renders the client component
+export default function CategoryPage({ params }) {
+    return <CategoryClient params={params} />;
+}
+
+// ================================
+// Create a separate file: /app/categories/[category]/CategoryClient.js
+// ================================
+
+"use client"
+
+import Image from 'next/image';
+import React, { useState, useEffect, use } from 'react'
+import Link from 'next/link';
+import { IoGridOutline, IoListOutline, IoFilterOutline } from 'react-icons/io5';
+import { FaSort, FaStar } from 'react-icons/fa';
+
+function CategoryClient({ params }) {
     const { category } = use(params);
     const categoryName = category.toLowerCase().replace(/%20/g, '-');
     const [products, setProducts] = useState([]);
@@ -288,4 +299,4 @@ function page({ params }) {
     )
 }
 
-export default page
+export default CategoryClient;
