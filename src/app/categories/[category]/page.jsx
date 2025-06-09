@@ -1,34 +1,4 @@
-import CategoryClient from './CategoryClient';
 
-// Server component that handles static generation
-export async function generateStaticParams() {
-    try {
-        // Fetch all products to get unique categories
-        const response = await fetch('https://dummyjson.com/products?limit=0&skip=0');
-        const data = await response.json();
-        
-        // Get unique categories
-        const categories = [...new Set(data.products.map(product => product.category))];
-        
-        // Return array of params for each category
-        return categories.map((category) => ({
-            category: category,
-        }));
-    } catch (error) {
-        console.error('Error generating static params:', error);
-        // Return empty array as fallback
-        return [];
-    }
-}
-
-// Server component that renders the client component
-export default function CategoryPage({ params }) {
-    return <CategoryClient params={params} />;
-}
-
-// ================================
-// Create a separate file: /app/categories/[category]/CategoryClient.js
-// ================================
 
 "use client"
 
@@ -38,7 +8,7 @@ import Link from 'next/link';
 import { IoGridOutline, IoListOutline, IoFilterOutline } from 'react-icons/io5';
 import { FaSort, FaStar } from 'react-icons/fa';
 
-function CategoryClient({ params }) {
+function page({ params }) {
     const { category } = use(params);
     const categoryName = category.toLowerCase().replace(/%20/g, '-');
     const [products, setProducts] = useState([]);
@@ -299,4 +269,4 @@ function CategoryClient({ params }) {
     )
 }
 
-export default CategoryClient;
+export default page
