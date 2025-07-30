@@ -8,6 +8,7 @@ import { MdOutlineArrowBackIos, MdOutlineArrowForwardIos } from "react-icons/md"
 import { BiSolidStar, BiSolidStarHalf, BiStar } from "react-icons/bi";
 import Link from 'next/link';
 import offers from '../../../public/assets/herocars/offers.jpg'
+import CardSkeletons from './CardSkeletons';
 
 // Star Rating Component
 const StarRating = ({ rating }) => {
@@ -27,6 +28,8 @@ const StarRating = ({ rating }) => {
     
     return <div className="flex items-center space-x-1 mb-3">{stars}</div>;
 };
+
+
 
 export default function SpecialOffers() {
     const [products, setProducts] = useState([]);
@@ -104,10 +107,19 @@ export default function SpecialOffers() {
     return (
         <div className="relative bg-gray-50 py-12">
             <div className="w-full max-w-7xl mx-auto px-6">
+                <div className='flex justify-between max-md:block'>
+
                 {/* Header Section */}
-                <div className="mb-8">
-                    <h2 className="text-4xl font-bold text-gray-900 mb-2">Special Offers</h2>
-                    <p className="text-gray-600 text-lg">Unbeatable deals and discounts just for you</p>
+                    <div className="mb-8">
+                        <h2 className="text-4xl font-bold text-gray-900 mb-2">Special Offers</h2>
+                        <p className="text-gray-600 text-lg">Unbeatable deals and discounts just for you</p>
+                    </div>
+                    <Link href="/specialoffers">
+                        <button className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center gap-2">
+                            View All Offers
+                            <MdOutlineArrowForwardIos size={16} />
+                        </button>
+                    </Link>
                 </div>
 
                 {/* Products Carousel */}
@@ -160,7 +172,7 @@ export default function SpecialOffers() {
                                             {/* Star Rating */}
                                             <div className="flex items-center space-x-1 mb-3">
                                                 <StarRating rating={p.rating} />
-                                                <span className="text-sm text-gray-500 ml-2">({p.rating})</span>
+                                                <span className="text-sm text-gray-500 ml-2 -mt-2">({p.rating})</span>
                                             </div>
                                             
                                             {/* Price Section */}
@@ -182,12 +194,17 @@ export default function SpecialOffers() {
                                 </Link>
                             ))
                         ) : (
-                            <div className="flex items-center justify-center w-full py-12">
-                                <div className="flex flex-col items-center space-y-4">
-                                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-                                    <p className="text-gray-600 font-medium">Loading special offers...</p>
-                                </div>
-                            </div>
+                            // <div className="flex items-center justify-center w-full py-12">
+                            //     <div className="flex flex-col items-center space-y-4">
+                            //         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+                            //         <p className="text-gray-600 font-medium">Loading special offers...</p>
+                            //     </div>
+                            // </div>
+          
+                        <CardSkeletons />
+                 
+
+                         
                         )}
                     </div>
 
@@ -205,11 +222,11 @@ export default function SpecialOffers() {
             </div>
 
             {/* Special Offers Banner */}
-            <div className="relative mt-16 w-full h-[500px] flex items-center justify-center overflow-hidden rounded-3xl mx-auto max-w-7xl">
+            <div className="relative mt-16 w-full h-[500px] flex items-center justify-center overflow-hidden rounded-3xl max-lg:rounded-none mx-auto max-w-7xl">
                 <Image 
                     src={offers} 
                     alt="Special offers banner" 
-                    className="absolute inset-0 w-full h-full object-cover z-0 object-right md:object-center" 
+                    className=" absolute inset-0 w-full h-full object-cover z-0 object-right md:object-center" 
                     width={1000} 
                     height={500} 
                 />
@@ -225,7 +242,7 @@ export default function SpecialOffers() {
                         <p className="text-lg md:text-xl mb-8 opacity-90 leading-relaxed">
                             Don't miss a chance to save on items you've been looking for.
                         </p>
-                        <Link href={'/products'}>
+                        <Link href={'/specialoffers'}>
                             <button className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
                                 Explore Now
                             </button>

@@ -173,7 +173,7 @@ function HeroCarousel() {
           >
             {div.id === 1 ? (
               // First slide with category links
-              <div className="w-full h-full flex flex-col lg:flex-row items-center justify-center lg:justify-between px-16 sm:px-6 lg:px-8  py-8 lg:py-12">
+              <div className="w-full h-full flex flex-col lg:flex-row items-center justify-center lg:justify-between px-32 sm:px-6 lg:px-16  py-8 lg:py-12">
                 <div className="flex-1 text-center lg:text-left mb-6 lg:mb-0 lg:pr-8">
                   <h2 className="text-2xl sm:text-3xl lg:text-5xl xl:text-6xl font-bold mb-3 lg:mb-6 leading-tight">
                     {div.title}
@@ -192,7 +192,7 @@ function HeroCarousel() {
                 </div>
                 
                 <div className="flex-1 flex justify-center lg:justify-end w-full">
-                  <div className="grid grid-cols-3 sm:grid-cols-3 gap-3 sm:gap-4 lg:gap-6 w-full max-w-sm lg:max-w-none">
+                  <div className="grid grid-cols-3 max-sm:gap-6 sm:grid-cols-3 gap-3 sm:gap-6 lg:gap-6 w-full max-w-sm lg:max-w-none">
                     {div.links.map((link, linkIndex) => (
                       link && link.LinkPhoto ? (
                         <Link 
@@ -200,7 +200,7 @@ function HeroCarousel() {
                           key={linkIndex} 
                           className="flex flex-col items-center group transition-all duration-300 hover:scale-105"
                         >
-                          <div className="relative w-16 h-16 sm:w-20 sm:h-20 lg:w-32 lg:h-32 rounded-full overflow-hidden shadow-lg group-hover:shadow-xl transition-shadow duration-300">
+                          <div className="relative w-16 h-16 max-sm:w-20 max-sm:h-20 sm:w-32 sm:h-32 lg:w-32 lg:h-32 rounded-full overflow-hidden shadow-lg group-hover:shadow-xl transition-shadow duration-300">
                             <Image
                               src={link.LinkPhoto}
                               alt={link.LinkName}

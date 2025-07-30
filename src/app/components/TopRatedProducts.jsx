@@ -5,6 +5,7 @@ import Link from 'next/link';
 import React, { useState, useEffect, useRef } from 'react';
 import { MdOutlineArrowBackIos, MdOutlineArrowForwardIos } from "react-icons/md";
 import { BiSolidStar, BiSolidStarHalf, BiStar } from "react-icons/bi";
+import CardSkeletons from './CardSkeletons';
 
 export const TopRatedProducts = () => {
     const [products, setProducts] = useState([]);
@@ -99,11 +100,19 @@ export const TopRatedProducts = () => {
     return (
         <div className="relative my-12 w-full max-w-7xl px-6 mx-auto">
             {/* Header Section */}
-            <div className="mb-8">
-                <h2 className="text-4xl font-bold text-gray-900 mb-2">Best Sellers</h2>
-                <p className="text-gray-600 text-lg">Discover our top-rated products loved by customers</p>
+            <div className='flex justify-between max-md:block'>
+
+                <div className="mb-8">
+                    <h2 className="text-4xl font-bold text-gray-900 mb-2">Best Sellers</h2>
+                    <p className="text-gray-600 text-lg">Discover our top-rated products loved by customers</p>
+                </div>
+                  <Link href="/bestsellers">
+                        <button className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center gap-2">
+                            View All Top Rated Products
+                            <MdOutlineArrowForwardIos size={16} />
+                        </button>
+                    </Link>
             </div>
-                    
             <div className="flex items-center relative">
                 {/* Left Arrow */}
                 {showLeftArrow && (
@@ -169,12 +178,7 @@ export const TopRatedProducts = () => {
                             </Link>
                         ))
                     ) : (
-                        <div className="flex items-center justify-center w-full py-12">
-                            <div className="flex flex-col items-center space-y-4">
-                                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-                                <p className="text-gray-600 font-medium">Loading top-rated products...</p>
-                            </div>
-                        </div>
+                       <CardSkeletons />
                     )}
                 </div>
 

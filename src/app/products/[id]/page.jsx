@@ -3,8 +3,12 @@
 'use client'
 import Image from 'next/image';
 import { useState, useEffect, use } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch , useSelector } from 'react-redux';
 import { addItem, openCart } from '../../features/cartSlice';
+import { toggleAuthModal } from '@/app/features/openAuthModalSlice';
+import Link from 'next/link';
+
+import { addToWishlist, removeFromWishlist } from '@/app/features/wishlistSlice';
 
 
 function page({params}) {
@@ -13,6 +17,27 @@ function page({params}) {
     const [loading, setLoading] = useState(true);
     const [selectedImage, setSelectedImage] = useState(0);
     const dispatch = useDispatch();
+
+
+    const isLoggedIn = useSelector((state) => state.auth.loggedIn);
+
+//   const wishlistItems = useSelector((state) => state.items);
+const wishlistItems = useSelector((state) => state.wishlist?.items || []);
+
+  const isInWishlist = wishlistItems.some(item => item.id === product.id);
+
+  const handleWishlistToggle = () => {
+    if (isLoggedIn) {
+
+        if (isInWishlist) {
+            dispatch(removeFromWishlist(product.id));
+        } else {
+            dispatch(addToWishlist(product));
+        }
+    } else {
+        dispatch(toggleAuthModal());
+    }
+  };
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -115,9 +140,11 @@ function page({params}) {
                             {/* Product Info Section */}
                             <div className="">
                                 <div className="mb-6">
+                                    <Link href={`/categories/${product.category}`}>
                                     <span className="inline-block px-3 py-1 bg-yellow-500 text-white text-sm font-medium rounded-full mb-3">
                                         {product.category}
                                     </span>
+                                    </Link>
                                     <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-3">{product.title}</h1>
                                     <p className="text-gray-600 mb-4">{product.description}</p>
                                 </div>
@@ -242,10 +269,26 @@ function page({params}) {
                                         {product.stock === 0 ? 'Out of Stock' : 'Add to Cart'}
                                     </button>
                                     <button 
-                                        className="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-3 px-6 rounded-lg transition-colors"
-                                        disabled={product.stock === 0}
+                                        // className="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-3 px-6 rounded-lg transition-colors"
+                                        onClick={handleWishlistToggle}
+                                        className={`w-full  text-white font-medium py-3 px-6 rounded-lg transition-colors ${
+                                            isInWishlist 
+                                              ? 'bg-red-500 border-red-500  hover:bg-red-700' 
+                                              : 'bg-yellow-500 hover:bg-yellow-600'
+                                          } `}
+                                        
                                     >
-                                        {product.stock === 0 ? 'Unavailable' : 'Buy Now'}
+                                                {isInWishlist ? (
+                                                    <>
+                                                    {/* <HeartSolidIcon className="h-5 w-5" /> */}
+                                                    <span className="font-medium">Remove from Wishlist</span>
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                    {/* <HeartIcon className="h-5 w-5" /> */}
+                                                    <span className="font-medium">Add to Wishlist</span>
+                                                    </>
+                                                )}
                                     </button>
                                 </div>
 

@@ -17,7 +17,7 @@ import Image from 'next/image';
 export default function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer className="bg-gray-100 border-t  pt-8 pb-4 px-16 max-md:px-4 mt-12 ">
+    <footer className="bg-gray-100 border-t  pt-8 pb-4 px-16 max-md:px-4  ">
       <div className='w-full'>
         <div className='flex justify-between max-md:flex-col max-md:items-center max-md:text-center max-md:gap-4'>
           <div>

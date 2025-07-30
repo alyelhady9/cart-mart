@@ -6,6 +6,8 @@ import store from "./store/Store";
 import Footer from "./components/Footer";
 import UpToTopButton from "./components/UpToTop";
 import Cart from "./components/Cart";
+import AuthModal from "./components/AuthModal";
+import CheckoutModal from "./components/CheckoutModal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,6 +35,8 @@ export default function RootLayout({ children }) {
         <Header />
         {children}
         <Cart />
+        <AuthModal />
+        <CheckoutModal />
         </ClientProvider>
 
         <UpToTopButton />

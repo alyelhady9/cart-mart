@@ -2,6 +2,8 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { closeCart, removeItem, updateQuantity, clearCart } from '../features/cartSlice';
+import { toggleAuthModal } from '../features/openAuthModalSlice';
+import { toggleCheckout } from '../features/checkoutSlice';
 
 function Cart() {
   const dispatch = useDispatch();
@@ -22,9 +24,17 @@ function Cart() {
   const handleClearCart = () => {
     dispatch(clearCart());
   };
+  const isLoggedIn = useSelector((state) => state.auth.loggedIn);
+  const handleChekout = () => { 
+    if (!isLoggedIn) { 
+      dispatch(toggleAuthModal());
+    } else {
+      dispatch(toggleCheckout())
+    }
+  }
+
 
   if (!isOpen) return null;
-
   return (
     <>
       {/* Backdrop */}
@@ -120,7 +130,7 @@ function Cart() {
               
               {/* Actions */}
               <div className="space-y-2">
-                <button className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors">
+                <button onClick={handleChekout} className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors">
                   Checkout
                 </button>
                 <button 

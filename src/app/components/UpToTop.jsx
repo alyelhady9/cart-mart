@@ -39,7 +39,7 @@ export default function UpToTopButton() {
                       bg-blue-600 text-white p-3 rounded-full shadow-lg
                       hover:bg-blue-700 transition-opacity duration-300 ease-in-out
                       focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75
-                      z-50 ${showButton ? 'opacity-100' : 'opacity-0'}`}
+                      z-40 ${showButton ? 'opacity-100' : 'opacity-0'}`}
           aria-label="Scroll to top"
         >
           <FaArrowUp size={24} />

@@ -1,3 +1,5 @@
+
+
 "use client"
 
 import Image from 'next/image';
@@ -5,27 +7,6 @@ import React, { useState, useEffect, use } from 'react'
 import Link from 'next/link';
 import { IoGridOutline, IoListOutline, IoFilterOutline } from 'react-icons/io5';
 import { FaSort, FaStar } from 'react-icons/fa';
-
-// Add this function to generate static params
-export async function generateStaticParams() {
-    try {
-        // Fetch all products to get unique categories
-        const response = await fetch('https://dummyjson.com/products?limit=0&skip=0');
-        const data = await response.json();
-        
-        // Get unique categories
-        const categories = [...new Set(data.products.map(product => product.category))];
-        
-        // Return array of params for each category
-        return categories.map((category) => ({
-            category: category,
-        }));
-    } catch (error) {
-        console.error('Error generating static params:', error);
-        // Return empty array as fallback
-        return [];
-    }
-}
 
 function page({ params }) {
     const { category } = use(params);

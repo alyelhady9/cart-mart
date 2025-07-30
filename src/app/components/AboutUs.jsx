@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { ShoppingCart, Users, Award, TrendingUp, Heart, Shield, Truck, Headphones } from 'lucide-react';
+import Link from 'next/link';
 
 export default function AboutUs() {
   const stats = [
@@ -38,7 +39,8 @@ export default function AboutUs() {
     {
       name: 'Sarah Chen',
       role: 'CEO & Founder',
-      image: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=400&fit=crop&crop=face',
+      // image: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=400&fit=crop&crop=face',
+      image: 'https://plus.unsplash.com/premium_photo-1675713554352-e3351772eadd?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
       description: 'Visionary leader with 15+ years in e-commerce innovation.'
     },
     {
@@ -198,14 +200,18 @@ export default function AboutUs() {
             Experience the Cart Mart difference today. Join millions of satisfied customers who trust us for their online shopping needs.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Link href={"/"}>
             <button className="bg-yellow-500 text-blue-900 px-8 py-4 rounded-full font-semibold text-lg hover:bg-yellow-400 transition-colors inline-flex items-center">
               <ShoppingCart className="mr-2" size={24} />
               Start Shopping Now
             </button>
+            </Link>
+            <Link href={'/contact'}>
             <button className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white hover:text-blue-600 transition-colors inline-flex items-center">
               <Headphones className="mr-2" size={24} />
               Contact Our Team
             </button>
+            </Link>
           </div>
         </div>
       </section>

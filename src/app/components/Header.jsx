@@ -5,11 +5,14 @@
 
 import React, { useState, useEffect } from 'react';
 import { IoSearchOutline } from "react-icons/io5";
-import { FaBars, FaTimes } from "react-icons/fa";
+import { FaBars, FaTimes, FaRegStar,FaStar} from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 import { IoCartOutline } from "react-icons/io5";
+
 import { useSelector, useDispatch } from 'react-redux';
-import { toggleCart } from '../features/cartSlice';
+import { toggleCart, hydrateCart } from '../features/cartSlice';
+import { toggleAuthModal } from '../features/openAuthModalSlice';
+import { logout } from '../features/authSlice';
 import {
     NavigationMenu,
     NavigationMenuContent,
@@ -94,7 +97,25 @@ function Header() {
           dispatch(toggleCart());
         };
     
+        const dispatchModal = useDispatch()
+        const ToggleAuthModal = () => { 
+            dispatchModal(toggleAuthModal())
+        }
+        const isLoggedIn = useSelector((state) => state.auth.loggedIn);
+        const userNameFull = useSelector ((state) => state.auth.userName)
+        const userName = String(userNameFull).indexOf('@') > -1 
+        ? String(userNameFull).substring(0, String(userNameFull).indexOf('@'))
+        : userNameFull;
+        useEffect(() => {
+            dispatch(hydrateCart());
+          }, [dispatch])
 
+
+
+
+        const handleLogout = () => {
+            dispatch(logout());
+        }
     return (
         <header className='w-full relative bg-white shadow-md'>
             {/* Main Header */}
@@ -113,8 +134,8 @@ function Header() {
                 </div>
 
                 {/* Search Bar */}
-                <div className={`flex w-6/12 justify-center ${!searchOpen ? 'max-md:hidden' : "max-md:w-8/12"}`}>
-                    <div className="relative w-full max-w-lg group">
+                <div className={`flex w-8/12 max-lg:w-7/12 justify-center ${!searchOpen ? 'max-md:hidden' : "max-md:w-8/12"}`}>
+                    <div className="relative w-full max-w-lg  group">
                         <input 
                             placeholder='Search for products, brands and more...' 
                             className='w-full rounded-full focus:outline-none placeholder:text-gray-400 placeholder:text-sm bg-gray-100 hover:bg-gray-200 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 px-6 py-3 pr-12 transition-all duration-200 shadow-sm' 
@@ -147,21 +168,44 @@ function Header() {
                 </div>  
 
                 {/* User Actions */}
-                <div className={`flex items-center gap-3 w-3/12 justify-end max-md:w-6/12 max-sm:w-7/12 ${searchOpen && 'max-md:hidden'}`}>
+                <div className={`flex items-center gap-3 w-3/12 max-lg:w-7/12 justify-end max-md:w-6/12 max-sm:w-7/12 ${searchOpen && 'max-md:hidden'}`}>
                     <div className={`md:hidden text-xl cursor-pointer p-2 hover:bg-gray-100 rounded-lg transition-all ${searchOpen ? 'hidden' : 'flex'}`} onClick={toggleSearch}>
                         <IoSearchOutline aria-label="Open Search" className="text-gray-700" />
                     </div>
                     
                     <div className={`md:flex ${searchOpen ? 'max-md:hidden' : 'flex'} items-center gap-3`}>
-                        
-                            <button 
-                                onClick={closeSearch} 
+                        {
+                            !isLoggedIn ? ( 
+
+                                <button 
+                                onClick={ToggleAuthModal} 
                                 className='bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-2.5 rounded-full font-medium transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5'
-                            >
+                                >
                                 Sign in
                             </button>
+            ) : (
+                <div className='max-lg:text-[10px]'>Hi, <span className='max-md:block'>{userName}</span></div>
+            )
                 
+            }
+            {
+                isLoggedIn && 
+                <button 
+                onClick={handleLogout} 
+                className='max-md:hidden bg-gradient-to-r text-sm from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-3 py-2 rounded-full font-medium transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5'
+                >
+                Log Out
+            </button>
+            }
                         
+                            {
+                                isLoggedIn && 
+                                <Link  href={'/wishlist'}>
+                                    <div className='text-xl p-2 rounded-lg hover:bg-gray-100 cursor-pointer transition-all'>
+                                        <FaRegStar className='text-gray-500 ' />
+                                    </div>
+                                </Link>
+                            }
                         <div  onClick={handleClick} className='relative'>
                             <div className='text-2xl p-2 rounded-lg hover:bg-gray-100 cursor-pointer transition-all' onClick={closeSearch}>
                                 <IoCartOutline aria-label="Cart" className="text-gray-700" />
@@ -213,6 +257,16 @@ function Header() {
                         Contact us
                         <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
                     </Link>
+                    {
+
+                        isLoggedIn && 
+                        <button 
+                        onClick={handleLogout} 
+                        className='hidden max-sm:block bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-6 py-2.5 rounded-full font-medium transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5'
+                        >
+                        Log Out
+                         </button>
+                    }
                 </div>
             </nav>
 

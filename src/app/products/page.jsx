@@ -94,7 +94,9 @@ function SearchContent() {
     return (
         <div className="min-h-screen bg-gray-50">
             {/* Search Header */}
-            <div className="bg-white shadow-sm border-b">
+            {
+                query !== '' &&
+                <div className="bg-white shadow-sm border-b">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
                     <div className="flex items-center gap-4 mb-4">
                         <IoSearchOutline className="text-blue-600 text-2xl" />
@@ -110,6 +112,7 @@ function SearchContent() {
                     )}
                 </div>
             </div>
+            }
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 {/* Filters and Sorting */}
