@@ -4,7 +4,7 @@ import { useSelector , useDispatch } from 'react-redux'
 import { toggleCheckout } from '../features/checkoutSlice'
 import { useState } from 'react'
 import { CiDeliveryTruck } from "react-icons/ci";
-
+import { closeCart } from '../features/cartSlice'
 function CheckoutModal() {
     const isOpen = useSelector(state => state.checkout.opened)
     const dispatch = useDispatch()
@@ -12,6 +12,7 @@ function CheckoutModal() {
     const handleCheckout = () => { 
         dispatch(toggleCheckout()) 
         handleOrderCompletion()
+        dispatch(closeCart())
     }
 
 
