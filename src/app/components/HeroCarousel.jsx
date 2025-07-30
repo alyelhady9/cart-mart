@@ -173,7 +173,7 @@ function HeroCarousel() {
           >
             {div.id === 1 ? (
               // First slide with category links
-              <div className="w-full h-full flex flex-col lg:flex-row items-center justify-center lg:justify-between px-32 sm:px-6 lg:px-16  py-8 lg:py-12">
+              <div className="w-full h-full flex flex-col lg:flex-row items-center justify-center lg:justify-between px-32 max-sm:px-6 lg:px-16  py-8 lg:py-12">
                 <div className="flex-1 text-center lg:text-left mb-6 lg:mb-0 lg:pr-8">
                   <h2 className="text-2xl sm:text-3xl lg:text-5xl xl:text-6xl font-bold mb-3 lg:mb-6 leading-tight">
                     {div.title}
